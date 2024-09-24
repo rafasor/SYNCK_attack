@@ -75,7 +75,7 @@ func main() {
 		}
 	}
 
-	fmt.Printf("[+] Starting comprehensive reconnaissance and vulnerability scanning for %s\n", domain)
+	fmt.Printf("[+] Iniciando o reconhecimento abrangente e a verificação de vulnerabilidades para %s\n", domain)
 
 	// Leia o arquivo de configuração de enumeração de subdomínios
 	data, err = ioutil.ReadFile("yaml_config/subdomain_enum.yaml")
@@ -99,7 +99,7 @@ func main() {
 	}
 
 	// Executar ferramentas de enumeração de subdomínios e DNS
-	fmt.Println("[+] Enumerating subdomains and performing DNS enumeration...")
+	fmt.Println("[+] Enumerar subdomínios e executando a enumeração DNS...")
 	for _, tool := range subdomainConfig.Tools {
 		tmpl, err := template.New("command").Parse(tool.Command)
 		if err != nil {
