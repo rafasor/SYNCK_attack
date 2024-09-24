@@ -1,0 +1,13 @@
+domain: recon_
+subdirectories:
+  - subdomains
+  - ip_addresses
+  - ports
+  - screenshots
+  - content
+  - vulnerabilities
+  - emails
+  - technologies
+  - dns
+  - certificates
+  - scans

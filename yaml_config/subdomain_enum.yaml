@@ -1,0 +1,15 @@
+tools:
+  - name: subfinder
+    command: subfinder -d {{.domain}} -o {{.output_dir}}/subdomains/subfinder.txt
+  - name: assetfinder
+    command: assetfinder --subs-only {{.domain}} > {{.output_dir}}/subdomains/assetfinder.txt
+  - name: amass
+    command: amass enum -d {{.domain}} -o {{.output_dir}}/subdomains/amass.txt
+  - name: github-subdomains
+    command: github-subdomains -d {{.domain}} -t {{.github_token}} -o {{.output_dir}}/subdomains/github_subdomains.txt
+  - name: chaos
+    command: chaos -key {{.chaos_token}} -d {{.domain}} -o {{.output_dir}}/subdomains/chaos.txt
+  - name: shuffledns
+    command: shuffledns -d {{.domain}} -list dns_enum_wordlist.txt -r resolvers.txt -mode bruteforce -o {{.output_dir}}/dns/dns_enum.txt
+  - name: sort
+    command: sh -c "sort -u {{.output_dir}}/subdomains/*.txt > {{.output_dir}}/subdomains/all_subdomains.txt"
