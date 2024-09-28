@@ -1,4 +1,6 @@
 tools:
+  - name: go-dorks
+    command: go-dork -q "site:'{{.domain}}'"  -p 5 | tee {{.output_dir/sudomains/go_dork.txt}}
   - name: subfinder
     command: subfinder -d {{.domain}} -o {{.output_dir}}/subdomains/subfinder.txt
   - name: assetfinder
@@ -9,7 +11,11 @@ tools:
     command: github-subdomains -d {{.domain}} -t {{.github_token}} -o {{.output_dir}}/subdomains/github_subdomains.txt
   - name: chaos
     command: chaos -key {{.chaos_token}} -d {{.domain}} -o {{.output_dir}}/subdomains/chaos.txt
+  - name: getCrtDomain
+    command: sh -c "echo '[+] Checking certificate transparency logs...' && curl -s 'https://crt.sh/?q=%25.{{.domain}}&output=json' | jq -r '.[].name_value' | sort -u > {{.output_dir}}/certificates/ct_logs.txt"
   - name: shuffledns
     command: shuffledns -d {{.domain}} -list dns_enum_wordlist.txt -r resolvers.txt -mode bruteforce -o {{.output_dir}}/dns/dns_enum.txt
-  - name: sort
-    command: sh -c "sort -u {{.output_dir}}/subdomains/*.txt > {{.output_dir}}/subdomains/all_subdomains.txt"
+  - name: findomain
+    command: findomain -t {{.domain}} -o {{.output_dir}}/findomain.txt
+  - name: consolidate
+    command: echo '[+] Consolidating subdomains...' && cat {{.output_dir}}/subdomains/*.txt | sort -u > {{.output_dir}}/subdomains/all_subdomains.txt
